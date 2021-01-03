@@ -1,5 +1,5 @@
-module.exports = () => {
+module.exports = (parent: any, args: any) => {
   return {
-    productTitle: 'a test'
+    productTitle: 'test product'
   }
 }
