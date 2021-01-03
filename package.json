@@ -16,6 +16,7 @@
     "url": "https://github.com/product-tracker-api.git"
   },
   "devDependencies": {
+    "@types/require-all": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
     "chai": "^4.2.0",
@@ -36,7 +37,6 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@types/require-all": "^3.0.1",
     "apollo-server-express": "^2.19.1",
     "require-all": "^3.0.0"
   },
