@@ -7,15 +7,15 @@
     "coverage": "nyc mocha --exit && nyc check-coverage",
     "lint": "eslint . --ext .ts --quiet && echo '✔ All good!'",
     "lint:fix": "eslint --ext .ts --fix .",
-    "start:dev": "nodemon --config ./nodemon.json src/server.ts",
-    "test": "npm run lint && npm run coverage",
-    "tsc": "tsc"
+    "start:dev": "nodemon",
+    "test": "npm run lint && npm run coverage"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/product-tracker-api.git"
   },
   "devDependencies": {
+    "@types/node": "^14.14.19",
     "@types/require-all": "^3.0.1",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
