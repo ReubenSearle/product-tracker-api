@@ -8,7 +8,7 @@ const getGraphqlOptions = function (): ApolloServerExpressConfig {
   }
 }
 
-const initialise = function () {
+const initialise = function (): void {
   const graphqlOptions = getGraphqlOptions()
   const server = new ApolloServer(graphqlOptions)
   const app = express()
