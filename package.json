@@ -37,8 +37,7 @@
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "apollo-server-express": "^2.19.1",
-    "require-all": "^3.0.0"
+    "apollo-server-express": "^2.19.1"
   },
   "license": "ISC"
 }

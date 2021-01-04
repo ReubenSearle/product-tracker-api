@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express'
 
-module.exports = gql`
+export default gql`
   input ProductSearchOptions {
     searchTerm: String
   }

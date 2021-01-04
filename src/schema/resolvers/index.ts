@@ -1,5 +1,6 @@
-module.exports = {
+import productSearch from './productSearch'
+export default {
   Query: {
-    productSearch: require('./productSearch')
+    productSearch
   }
 }

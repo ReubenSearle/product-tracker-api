@@ -1,8 +1,7 @@
-import requireAll from 'require-all'
+import productSearch from './productSearch'
+import query from './query'
 
-const definitions = requireAll({
-  dirname: __dirname,
-  filter: /^(?!index)(.+?)\.ts$/
-})
-
-module.exports = Object.values(definitions)
+export default [
+  productSearch,
+  query
+]

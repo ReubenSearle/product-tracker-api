@@ -1,6 +1,6 @@
 import { gql } from 'apollo-server-express'
-const definitions = require('./definitions')
-const resolvers = require('./resolvers')
+import definitions from './definitions'
+import resolvers from './resolvers'
 
 const rootSchema = gql`
   schema {
@@ -8,7 +8,7 @@ const rootSchema = gql`
   }
 `
 
-module.exports = {
+export default {
   typeDefs: [
     ...definitions,
     rootSchema

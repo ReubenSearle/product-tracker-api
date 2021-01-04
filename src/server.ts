@@ -1,6 +1,6 @@
 import { ApolloServer, ApolloServerExpressConfig } from 'apollo-server-express'
 import express from 'express'
-import * as schema from './schema'
+import schema from './schema'
 
 const getGraphqlOptions = function (): ApolloServerExpressConfig {
   return {
