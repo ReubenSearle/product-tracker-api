@@ -1,4 +1,4 @@
-import productSearch from './productSearch'
+import productSearch from './productSearch.js'
 export default {
   Query: {
     productSearch

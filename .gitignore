@@ -138,3 +138,6 @@ src/_samples
 
 # Package-lock
 package-lock.json
+
+# Compiled
+dist

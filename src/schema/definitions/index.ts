@@ -1,5 +1,5 @@
-import productSearch from './productSearch'
-import query from './query'
+import productSearch from './productSearch.js'
+import query from './query.js'
 
 export default [
   productSearch,
