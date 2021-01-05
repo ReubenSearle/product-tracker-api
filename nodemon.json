@@ -1,5 +1,5 @@
 {
-  "exec": "npm run compile && node ./dist/server.js",
+  "exec": "npm run compile && node ./lib/server.js",
   "ext": "ts,json",
   "ignore": [],
   "watch": ["src"]

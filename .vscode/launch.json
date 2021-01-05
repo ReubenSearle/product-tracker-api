@@ -8,14 +8,12 @@
       "skipFiles": [
         "<node_internals>/**"
       ],
-      "runtimeVersion": "12.19.0",
-      "program": "${workspaceFolder}/src/server.js"
-    },
-    {
-      "type": "node",
-      "request": "attach",
-      "name": "Attach",
-      "port": 9226
+      "preLaunchTask": "npm: compile",
+      "program": "${workspaceFolder}/src/server.ts",
+      "outFiles": [
+        "${workspaceFolder}/lib/**/*.js"
+      ],
+      "runtimeVersion": "14.15.3"
     }
   ]
 }
