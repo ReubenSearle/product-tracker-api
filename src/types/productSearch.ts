@@ -1,4 +1,5 @@
 export type Product = {
+  productId: string
   productTitle: string
 }
 
