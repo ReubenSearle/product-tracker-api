@@ -13,6 +13,9 @@ function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolve
     itemFilters: [{
       name: itemFilterType.condition,
       value: condition.used.toString()
+    }, {
+      name: itemFilterType.maxDistance,
+      value: '10'
     }],
     itemsPerPage: 100,
     keywords: args.input.keywords,
