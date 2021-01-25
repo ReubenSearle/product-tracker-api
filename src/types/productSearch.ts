@@ -1,6 +1,12 @@
 export type Product = {
+  location: Location
   productId: string
   productTitle: string
+}
+
+export type Location = {
+  name: string
+  postCode: string
 }
 
 export type ProductSearchResponse = {

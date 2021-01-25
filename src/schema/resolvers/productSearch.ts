@@ -28,6 +28,7 @@ function mapEbayItemsToProductResponse (ebayItems: EbayItems): ProductSearchResp
   return {
     products: ebayItems.map(ebayItem => {
       return {
+        location: { name: ebayItem.location.name, postCode: ebayItem.location.postalCode },
         productId: ebayItem.itemId,
         productTitle: ebayItem.title
       }
