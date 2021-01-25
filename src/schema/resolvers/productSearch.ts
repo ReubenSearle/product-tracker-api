@@ -1,6 +1,6 @@
 import Ebay from 'ebay-sdk'
 import { condition, itemFilterType, itemSortOrder, marketplaceCategory, marketplaceId } from 'ebay-sdk/lib/esm/enums/index.js'
-import { AppConfig } from 'ebay-sdk/lib/esm/types/appConfig'
+import { AppConfig } from 'ebay-sdk/lib/esm/types/appConfig.js'
 import { EbayItems } from 'ebay-sdk/lib/esm/types/ebayItems.js'
 import { FindItemsAdvancedRequestOptions } from 'ebay-sdk/lib/esm/types/findingRequestOptions.js'
 import { ProductSearchResponse, QueryToProductSearchResolverArgs, QueryToProductSearchResolverParent } from '../../types/productSearch.js'
