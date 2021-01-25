@@ -1,5 +1,6 @@
 import Ebay from 'ebay-sdk'
 import { condition, itemFilterType, itemSortOrder, marketplaceCategory, marketplaceId } from 'ebay-sdk/lib/esm/enums/index.js'
+import { AppConfig } from 'ebay-sdk/lib/esm/types/appConfig'
 import { EbayItems } from 'ebay-sdk/lib/esm/types/ebayItems.js'
 import { FindItemsAdvancedRequestOptions } from 'ebay-sdk/lib/esm/types/findingRequestOptions.js'
 import { ProductSearchResponse, QueryToProductSearchResolverArgs, QueryToProductSearchResolverParent } from '../../types/productSearch.js'
@@ -31,7 +32,13 @@ function mapEbayItemsToProductResponse (ebayItems: EbayItems): ProductSearchResp
 }
 
 export default async function (parent: QueryToProductSearchResolverParent, args: QueryToProductSearchResolverArgs) {
-  const appConfig = { applicationId: 'ReubenSe-ProductT-PRD-dd4af8734-e20fc474' }
+  const useEbayApiSandboxEnv = (process.env.EBAY_API_SANDBOX.toLowerCase() === 'true')
+  const appConfig: AppConfig = {
+    applicationId: useEbayApiSandboxEnv
+      ? process.env.EBAY_API_SANDBOX_APP_ID
+      : process.env.EBAY_API_PRODUCTION_APP_ID,
+    sandbox: useEbayApiSandboxEnv
+  }
   const ebay = new Ebay(appConfig)
   const options = buildFindItemsAdvancedRequestOptions(args)
   const result = await ebay.finding.findItemsAdvanced(options)
