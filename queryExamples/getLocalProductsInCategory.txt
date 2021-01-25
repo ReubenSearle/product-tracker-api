@@ -1,0 +1,15 @@
+query testing {
+	productSearch(input: {category: garageEquipmentTools}) {
+  	products {
+      ...productResult
+    }
+	}
+}
+
+fragment productResult on Product {
+  location {
+    name
+  }
+  productId
+  productTitle
+}

@@ -1,17 +1,28 @@
-import { ApolloServer, ApolloServerExpressConfig } from 'apollo-server-express'
+import { ApolloServer, ApolloServerExpressConfig, PlaygroundConfig } from 'apollo-server-express'
 import dotenv from 'dotenv'
+import playgroundTabs from '../queryExamples/index.js'
 import express from 'express'
 import schema from './schema/index.js'
 
-const getGraphqlOptions = function (): ApolloServerExpressConfig {
+const defaultGraphqlEndpoint = '/graphql'
+
+const getGraphQlOptions = function (): ApolloServerExpressConfig {
   return {
-    ...schema
+    ...schema,
+    playground: getGraphQlPlayGroundOptions()
+  }
+}
+
+const getGraphQlPlayGroundOptions = function () : PlaygroundConfig {
+  return {
+    title: 'Product Tracker',
+    tabs: playgroundTabs(defaultGraphqlEndpoint)
   }
 }
 
 const initialise = function (): void {
   dotenv.config()
-  const graphqlOptions = getGraphqlOptions()
+  const graphqlOptions = getGraphQlOptions()
   const server = new ApolloServer(graphqlOptions)
   const app = express()
   server.applyMiddleware({ app })
