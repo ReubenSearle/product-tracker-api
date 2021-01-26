@@ -9,7 +9,7 @@
     "lint": "eslint . --ext .ts --quiet && echo '✔ All good!'",
     "lint:fix": "eslint --ext .ts --fix .",
     "start": "nodemon --verbose",
-    "test": "npm run lint && npm run coverage",
+    "test:integration": "mocha --config=test/integration/.mocharc.json",
     "compile": "tsc"
   },
   "repository": {
@@ -20,6 +20,7 @@
     "@types/node": "^14.14.22",
     "@typescript-eslint/eslint-plugin": "^4.11.1",
     "@typescript-eslint/parser": "^4.11.1",
+    "apollo-server-testing": "^2.19.2",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "dirty-chai": "^2.0.1",
@@ -33,6 +34,7 @@
     "mocha": "^8.2.1",
     "nodemon": "^2.0.6",
     "nyc": "^15.1.0",
+    "sinon": "^9.2.4",
     "sinon-chai": "^3.5.0",
     "typescript": "^4.1.3"
   },
