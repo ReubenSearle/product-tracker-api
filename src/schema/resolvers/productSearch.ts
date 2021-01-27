@@ -17,7 +17,7 @@ function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolve
       name: itemFilterType.maxDistance,
       value: '10'
     }],
-    itemsPerPage: 100,
+    itemsPerPage: 10,
     keywords: args.input.keywords,
     marketplaceId: marketplaceId.ebayGB,
     sortOrder: itemSortOrder.distanceNearest

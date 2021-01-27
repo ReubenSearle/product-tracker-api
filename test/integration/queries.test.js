@@ -2,6 +2,8 @@ import { createTestClient } from 'apollo-server-testing'
 import { gql } from 'apollo-server-express'
 import constructTestServer from './testServer.js'
 import Ebay from 'ebay-sdk'
+import productSearchSingleCategoryFixture from './fixtures/productSearchSingleCategory.js'
+import productSearchSingleCategoryExpected from './expected/productSearchSingleCategory.js'
 import sinon from 'sinon'
 
 describe('Queries', function() {
@@ -17,7 +19,8 @@ describe('Queries', function() {
   describe('Product Search', function() {
     context('when searching for all products in a category', function () {
       beforeEach(function() {
-        sinon.stub(Ebay.prototype, 'finding').returns({ findItemsAdvanced: sinon.stub() })
+        const findItemsAdvanced = sinon.stub().resolves(productSearchSingleCategoryFixture)
+        sinon.stub(Ebay.prototype, 'finding').value({ findItemsAdvanced })
       })
       it('should return the expected products', async function () {
         const query = gql`
@@ -31,8 +34,7 @@ describe('Queries', function() {
           }
         `
         const result = await testClient.query({ query })
-        // setup dotenv for test scenarios
-        console.log(result)
+        expect(result.data).to.deep.equal(productSearchSingleCategoryExpected)
       })
     })
   })
