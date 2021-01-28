@@ -23,13 +23,13 @@ function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolve
     requestOptions.keywords = args.input.filter.keywords
   }
   if (args.input.filter?.maxDistance) {
-    if (!args.input.filter?.buyerPostCode) throw new Error('')
+    if (!args.input.filter?.buyerPostCode) throw new Error('buyerPostCode is required to assert maxDistance filter')
     requestOptions.buyerPostalCode = args.input.filter.buyerPostCode
     requestOptions.itemFilters?.push({ name: itemFilterType.maxDistance, value: args.input.filter.maxDistance.toString() })
   }
   if (args.input.sort) {
     if (args.input.sort === itemSortOrder.distanceNearest) {
-      if (!args.input.filter?.buyerPostCode) throw new Error('')
+      if (!args.input.filter?.buyerPostCode) throw new Error('buyerPostCode is required to assert distanceNearest sorting')
       requestOptions.buyerPostalCode = args.input.filter.buyerPostCode
     }
     const sortOrderEnumKey = args.input.sort as keyof typeof itemSortOrder
