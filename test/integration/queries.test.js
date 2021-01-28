@@ -4,7 +4,6 @@ import constructTestServer from './testServer.js'
 import Ebay from 'ebay-sdk'
 import productSearchSingleCategoryFixture from './fixtures/productSearchSingleCategory.js'
 import productSearchSingleCategoryExpected from './expected/productSearchSingleCategory.js'
-import sinon from 'sinon'
 
 describe('Queries', function() {
   let testClient
