@@ -9,7 +9,7 @@ function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolve
   const requestOptions: FindItemsAdvancedRequestOptions = {
     itemFilters: [],
     itemsPerPage: 10, // gql paging not yet implemented
-    marketplaceId: marketplaceId.default // currently only supporting the default
+    marketplaceId: marketplaceId.ebayGB
   }
   if (args.input.filter?.category) {
     const categoryEnumKey = args.input.filter.category as keyof typeof marketplaceCategory.gb

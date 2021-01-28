@@ -1,5 +1,15 @@
-query testing {
-	productSearch(input: {category: garageEquipmentTools}) {
+query newlyListedUsedProductsInLocalArea {
+	productSearch(
+    input: {
+      filter: {
+        buyerPostCode: "CT19 5HE"
+        category: garageEquipmentTools
+        condition: used
+        maxDistance: 5
+      }
+      sort: startTimeNewest
+    }
+  ) {
   	products {
       ...productResult
     }
