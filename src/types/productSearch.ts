@@ -17,7 +17,14 @@ export type QueryToProductSearchResolverParent = {}
 
 export type QueryToProductSearchResolverArgs = {
   input: {
-    category: string
-    keywords: string
+    filter?: {
+      category?: string
+      condition?: string
+      keywords?: string
+      listedAfter?: Date
+      maxDistance?: Number
+      buyerPostCode?: string
+    }
+    sort?: string
   }
 }

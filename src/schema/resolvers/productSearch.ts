@@ -6,22 +6,36 @@ import { FindItemsAdvancedRequestOptions } from 'ebay-sdk/lib/esm/types/findingR
 import { ProductSearchResponse, QueryToProductSearchResolverArgs, QueryToProductSearchResolverParent } from '../../types/productSearch.js'
 
 function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolverArgs): FindItemsAdvancedRequestOptions {
-  const categoryEnumKey = args.input.category as keyof typeof marketplaceCategory.gb
-  return {
-    buyerPostalCode: 'CT19 5HE',
-    categoryId: marketplaceCategory.gb[categoryEnumKey],
-    itemFilters: [{
-      name: itemFilterType.condition,
-      value: condition.used.toString()
-    }, {
-      name: itemFilterType.maxDistance,
-      value: '10'
-    }],
-    itemsPerPage: 10,
-    keywords: args.input.keywords,
-    marketplaceId: marketplaceId.ebayGB,
-    sortOrder: itemSortOrder.distanceNearest
+  const requestOptions: FindItemsAdvancedRequestOptions = {
+    itemFilters: [],
+    itemsPerPage: 10, // gql paging not yet implemented
+    marketplaceId: marketplaceId.default // currently only supporting the default
   }
+  if (args.input.filter?.category) {
+    const categoryEnumKey = args.input.filter.category as keyof typeof marketplaceCategory.gb
+    requestOptions.categoryId = marketplaceCategory.gb[categoryEnumKey]
+  }
+  if (args.input.filter?.condition) {
+    const conditionEnumKey = args.input.filter.condition as keyof typeof condition
+    requestOptions.itemFilters?.push({ name: itemFilterType.condition, value: condition[conditionEnumKey].toString() })
+  }
+  if (args.input.filter?.keywords) {
+    requestOptions.keywords = args.input.filter.keywords
+  }
+  if (args.input.filter?.maxDistance) {
+    if (!args.input.filter?.buyerPostCode) throw new Error('')
+    requestOptions.buyerPostalCode = args.input.filter.buyerPostCode
+    requestOptions.itemFilters?.push({ name: itemFilterType.maxDistance, value: args.input.filter.maxDistance.toString() })
+  }
+  if (args.input.sort) {
+    if (args.input.sort === itemSortOrder.distanceNearest) {
+      if (!args.input.filter?.buyerPostCode) throw new Error('')
+      requestOptions.buyerPostalCode = args.input.filter.buyerPostCode
+    }
+    const sortOrderEnumKey = args.input.sort as keyof typeof itemSortOrder
+    requestOptions.sortOrder = itemSortOrder[sortOrderEnumKey]
+  }
+  return requestOptions
 }
 
 function mapEbayItemsToProductResponse (ebayItems: EbayItems): ProductSearchResponse {

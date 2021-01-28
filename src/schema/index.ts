@@ -3,6 +3,8 @@ import definitions from './definitions/index.js'
 import resolvers from './resolvers/index.js'
 
 const rootSchema = gql`
+  scalar DateTime
+
   schema {
     query: Query
   }
