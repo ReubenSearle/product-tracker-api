@@ -9,7 +9,7 @@ import { Product, ProductSearchResponse, QueryToProductSearchResolverArgs, Query
 function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolverArgs): FindItemsAdvancedRequestOptions {
   const requestOptions: FindItemsAdvancedRequestOptions = {
     itemFilters: [],
-    itemsPerPage: 10, // gql paging not yet implemented
+    itemsPerPage: 100, // gql paging not yet implemented
     marketplaceId: marketplaceId.ebayGB
   }
   if (args.input.filter?.category) {
