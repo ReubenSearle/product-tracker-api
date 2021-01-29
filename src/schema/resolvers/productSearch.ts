@@ -1,9 +1,10 @@
 import Ebay from 'ebay-sdk'
+import moment from 'moment'
 import { condition, itemFilterType, itemSortOrder, marketplaceCategory, marketplaceId } from 'ebay-sdk/lib/esm/enums/index.js'
 import { AppConfig } from 'ebay-sdk/lib/esm/types/appConfig.js'
-import { EbayItems } from 'ebay-sdk/lib/esm/types/ebayItems.js'
+import { EbayItems, EbayItem } from 'ebay-sdk/lib/esm/types/ebayItems.js'
 import { FindItemsAdvancedRequestOptions } from 'ebay-sdk/lib/esm/types/findingRequestOptions.js'
-import { ProductSearchResponse, QueryToProductSearchResolverArgs, QueryToProductSearchResolverParent } from '../../types/productSearch.js'
+import { Product, ProductSearchResponse, QueryToProductSearchResolverArgs, QueryToProductSearchResolverParent } from '../../types/productSearch.js'
 
 function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolverArgs): FindItemsAdvancedRequestOptions {
   const requestOptions: FindItemsAdvancedRequestOptions = {
@@ -38,19 +39,28 @@ function buildFindItemsAdvancedRequestOptions (args: QueryToProductSearchResolve
   return requestOptions
 }
 
-function mapEbayItemsToProductResponse (ebayItems: EbayItems): ProductSearchResponse {
+function mapEbayItemsToProducts (ebayItems: EbayItems): Product[] {
+  return ebayItems.map(mapEbayItemToProduct)
+}
+
+function mapEbayItemToProduct (ebayItem: EbayItem): Product {
   return {
-    products: ebayItems.map(ebayItem => {
-      return {
-        location: { name: ebayItem.location.name, postCode: ebayItem.location.postalCode },
-        productId: ebayItem.itemId,
-        productTitle: ebayItem.title
-      }
-    })
+    listing: { endTime: ebayItem.listing.endTime, startTime: ebayItem.listing.startTime },
+    location: { name: ebayItem.location.name, postCode: ebayItem.location.postalCode },
+    productId: ebayItem.itemId,
+    productTitle: ebayItem.title
   }
 }
 
-export default async function (parent: QueryToProductSearchResolverParent, args: QueryToProductSearchResolverArgs) {
+function filterProducts (products: Product[], args: QueryToProductSearchResolverArgs): Product[] {
+  const listedAfter = args.input.filter?.listedAfter
+  if (listedAfter) {
+    products = products.filter(product => moment(product.listing.startTime).isAfter(listedAfter))
+  }
+  return products
+}
+
+export default async function (parent: QueryToProductSearchResolverParent, args: QueryToProductSearchResolverArgs): Promise<ProductSearchResponse> {
   const useEbayApiSandboxEnv = (process.env.EBAY_API_SANDBOX.toLowerCase() === 'true')
   const appConfig: AppConfig = {
     applicationId: useEbayApiSandboxEnv
@@ -61,5 +71,7 @@ export default async function (parent: QueryToProductSearchResolverParent, args:
   const ebay = new Ebay(appConfig)
   const options = buildFindItemsAdvancedRequestOptions(args)
   const result = await ebay.finding.findItemsAdvanced(options)
-  return mapEbayItemsToProductResponse(result)
+  const products = mapEbayItemsToProducts(result)
+  const filteredProducts = filterProducts(products, args)
+  return { products: filteredProducts }
 }

@@ -5,6 +5,7 @@ query newlyListedUsedProductsInLocalArea {
         buyerPostCode: "CT19 5HE"
         category: garageEquipmentTools
         condition: used
+        listedAfter: "2021-01-28T19:59:59.000Z"
         maxDistance: 5
       }
       sort: startTimeNewest

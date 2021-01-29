@@ -4,13 +4,17 @@ export type Location = {
 }
 
 export type Product = {
+  listing: {
+    endTime: Date
+    startTime: Date
+  }
   location: Location
   productId: string
   productTitle: string
 }
 
 export type ProductSearchResponse = {
-  products: Array<Product>
+  products: Product[]
 }
 
 export type QueryToProductSearchResolverParent = {}
